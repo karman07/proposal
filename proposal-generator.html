@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dine3D Proposal Generator - Full Control</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif;
+            max-width: 800px; 
+            margin: 30px auto; 
+            padding: 30px;
+            background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .section {
+            margin: 30px 0;
+            padding: 20px;
+            border: 2px solid #f0f0f0;
+            border-radius: 10px;
+            background: #fafafa;
+        }
+        .section h3 {
+            color: #D4AF37;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+        .form-group { 
+            margin: 15px 0; 
+        }
+        .form-row {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .form-row .form-group {
+            flex: 1;
+            margin: 0;
+        }
+        label { 
+            display: block; 
+            margin-bottom: 5px; 
+            font-weight: 600;
+            color: #555;
+            font-size: 14px;
+        }
+        input { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid #e0e0e0; 
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+        input:focus {
+            outline: none;
+            border-color: #D4AF37;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        button { 
+            width: 100%;
+            padding: 18px; 
+            background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%);
+            color: white; 
+            border: none; 
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer; 
+            margin-top: 25px;
+        }
+        button:hover { 
+            transform: translateY(-2px);
+        }
+        .result { 
+            margin-top: 40px; 
+            padding: 30px; 
+            background: #f8f9fa; 
+            border-radius: 10px; 
+            border-left: 5px solid #D4AF37;
+        }
+        .url-display { 
+            background: #fff; 
+            padding: 15px; 
+            border-radius: 8px; 
+            word-break: break-all; 
+            margin: 15px 0;
+            border: 1px solid #e0e0e0;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        .copy-btn, .preview-btn { 
+            flex: 1;
+            padding: 12px 20px; 
+            margin: 0;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+        .copy-btn {
+            background: #28a745; 
+        }
+        .preview-btn {
+            background: #007bff;
+        }
+        .preset-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .preset-btn {
+            padding: 8px 16px;
+            background: #17a2b8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .preset-btn:hover {
+            background: #138496;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Dine3D Proposal Generator</h1>
+        <p class="subtitle">Full control over restaurant details and pricing!</p>
+        
+        <div class="preset-buttons">
+            <button class="preset-btn" onclick="loadPreset('premium')">Premium Restaurant</button>
+            <button class="preset-btn" onclick="loadPreset('standard')">Standard Restaurant</button>
+            <button class="preset-btn" onclick="loadPreset('budget')">Budget Restaurant</button>
+        </div>
+        
+        <form id="proposalForm">
+            <!-- Restaurant Information -->
+            <div class="section">
+                <h3>🏪 Restaurant Information</h3>
+                <div class="form-group">
+                    <label for="restaurantName">Restaurant Name:</label>
+                    <input type="text" id="restaurantName" placeholder="e.g., Olive Garden, Pizza Palace, Cafe Mocha" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Full Address/Location:</label>
+                    <input type="text" id="location" placeholder="e.g., Marine Drive, Bandra West, Mumbai" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="city">City:</label>
+                    <input type="text" id="city" placeholder="e.g., Mumbai, Delhi, Bangalore" required>
+                </div>
+            </div>
+
+            <!-- Pricing Control -->
+            <div class="section">
+                <h3>💰 Pricing Control</h3>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="setupFirst40Standard">Setup First 40 Dishes - Standard (₹):</label>
+                        <input type="number" id="setupFirst40Standard" value="2000" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="setupFirst40Partner">Setup First 40 Dishes - Partner (₹):</label>
+                        <input type="number" id="setupFirst40Partner" value="1000" min="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="setupAfter40Standard">Setup After 40 Dishes - Standard (₹):</label>
+                        <input type="number" id="setupAfter40Standard" value="1500" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="setupAfter40Partner">Setup After 40 Dishes - Partner (₹):</label>
+                        <input type="number" id="setupAfter40Partner" value="850" min="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="monthlyHostingStandard">Monthly Hosting - Standard (₹):</label>
+                        <input type="number" id="monthlyHostingStandard" value="3500" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="monthlyHostingPartner">Monthly Hosting - Partner (₹):</label>
+                        <input type="number" id="monthlyHostingPartner" value="2000" min="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="freeViewsStandard">Free Views/Month - Standard:</label>
+                        <input type="number" id="freeViewsStandard" value="2000" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="freeViewsPartner">Free Views/Month - Partner:</label>
+                        <input type="number" id="freeViewsPartner" value="3000" min="0">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="extraViewsStandard">Extra Views - Standard (₹):</label>
+                        <input type="number" id="extraViewsStandard" value="0.75" step="0.01" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="extraViewsPartner">Extra Views - Partner (₹):</label>
+                        <input type="number" id="extraViewsPartner" value="0.50" step="0.01" min="0">
+                    </div>
+                </div>
+            </div>
+            
+            <button type="submit">🎯 Generate Custom Proposal URL</button>
+        </form>
+        
+        <div id="result" class="result" style="display: none;">
+            <h3>✅ Your Custom Proposal URL:</h3>
+            <div id="urlDisplay" class="url-display"></div>
+            
+            <div class="action-buttons">
+                <button class="copy-btn" onclick="copyUrl()">📋 Copy URL</button>
+                <button class="preview-btn" onclick="openPreview()">👁️ Preview</button>
+            </div>
+            
+            <div style="margin-top: 20px; padding: 15px; background: #d4edda; border-radius: 8px; color: #155724;">
+                <h4 style="margin-top: 0;">📧 Next Steps:</h4>
+                <ol style="margin-bottom: 0;">
+                    <li>Copy the URL above</li>
+                    <li>Send it to your restaurant client</li>
+                    <li>They see a fully personalized proposal with custom pricing!</li>
+                    <li>All your contact details remain the same</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let generatedUrl = '';
+        
+        // Preset configurations
+        const presets = {
+            premium: {
+                setupFirst40Standard: 3000,
+                setupFirst40Partner: 1500,
+                setupAfter40Standard: 2000,
+                setupAfter40Partner: 1200,
+                monthlyHostingStandard: 5000,
+                monthlyHostingPartner: 3000,
+                freeViewsStandard: 1500,
+                freeViewsPartner: 2500,
+                extraViewsStandard: 1.00,
+                extraViewsPartner: 0.75
+            },
+            standard: {
+                setupFirst40Standard: 2000,
+                setupFirst40Partner: 1000,
+                setupAfter40Standard: 1500,
+                setupAfter40Partner: 850,
+                monthlyHostingStandard: 3500,
+                monthlyHostingPartner: 2000,
+                freeViewsStandard: 2000,
+                freeViewsPartner: 3000,
+                extraViewsStandard: 0.75,
+                extraViewsPartner: 0.50
+            },
+            budget: {
+                setupFirst40Standard: 1500,
+                setupFirst40Partner: 800,
+                setupAfter40Standard: 1200,
+                setupAfter40Partner: 650,
+                monthlyHostingStandard: 2500,
+                monthlyHostingPartner: 1500,
+                freeViewsStandard: 2500,
+                freeViewsPartner: 3500,
+                extraViewsStandard: 0.50,
+                extraViewsPartner: 0.35
+            }
+        };
+
+        function loadPreset(type) {
+            const preset = presets[type];
+            Object.keys(preset).forEach(key => {
+                const element = document.getElementById(key);
+                if (element) {
+                    element.value = preset[key];
+                }
+            });
+        }
+        
+        document.getElementById('proposalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const data = {};
+            
+            // Get all form values
+            const inputs = e.target.querySelectorAll('input');
+            inputs.forEach(input => {
+                data[input.id] = input.value;
+            });
+            
+            // Update this with your actual deployed domain
+            const baseUrl = 'http://localhost:8080'; // Change after deployment
+            
+            // Build URL with all parameters
+            const params = new URLSearchParams();
+            Object.keys(data).forEach(key => {
+                if (data[key]) {
+                    params.append(key, data[key]);
+                }
+            });
+            
+            generatedUrl = `${baseUrl}?${params.toString()}`;
+            
+            document.getElementById('urlDisplay').textContent = generatedUrl;
+            document.getElementById('result').style.display = 'block';
+            
+            document.getElementById('result').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        function copyUrl() {
+            navigator.clipboard.writeText(generatedUrl).then(() => {
+                alert('✅ URL copied! Send it to your client.');
+            });
+        }
+        
+        function openPreview() {
+            window.open(generatedUrl, '_blank');
+        }
+    </script>
+</body>
+</html>
