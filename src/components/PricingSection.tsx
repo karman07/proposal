@@ -3,6 +3,7 @@ import { useRestaurant } from '../hooks/useRestaurant';
 
 export const PricingSection = () => {
   const restaurant = useRestaurant();
+
   const pricingData = [
     {
       category: "Setup per Dish",
@@ -45,6 +46,7 @@ export const PricingSection = () => {
   return (
     <section className="py-20 px-4 bg-black">
       <div className="max-w-6xl mx-auto">
+        {/* Header */}
         <div className="text-center mb-16">
           <div className="flex justify-center mb-8">
             <DollarSign className="w-12 h-12 golden-text" />
@@ -53,34 +55,20 @@ export const PricingSection = () => {
             💰 Special Strategic Pricing for {restaurant.name}
           </h2>
         </div>
-        
+
         {/* Pricing Table */}
         <div className="bg-gray-900/50 backdrop-blur-sm golden-border rounded-2xl p-8 mb-8">
-          {/* Table Header */}
           <div className="grid grid-cols-3 gap-4 mb-6 pb-4 border-b border-gray-700">
-            <div className="text-center">
-              <h3 className="text-xl font-bold golden-text">Category</h3>
-            </div>
-            <div className="text-center">
-              <h3 className="text-xl font-bold text-gray-400">Standard Price</h3>
-            </div>
-            <div className="text-center">
-              <h3 className="text-xl font-bold text-green-400">{restaurant.name} Partner Price</h3>
-            </div>
+            <h3 className="text-xl font-bold text-center golden-text">Category</h3>
+            <h3 className="text-xl font-bold text-center text-gray-400">Standard Price</h3>
+            <h3 className="text-xl font-bold text-center text-green-400">{restaurant.name} Partner Price</h3>
           </div>
-          
-          {/* Table Content */}
           <div className="space-y-4">
             {pricingData.map((item, index) => (
-              <div 
-                key={index}
-                className="grid grid-cols-3 gap-4 items-center py-4 border-b border-gray-800 last:border-b-0"
-              >
+              <div key={index} className="grid grid-cols-3 gap-4 items-center py-4 border-b border-gray-800 last:border-b-0">
                 <div className="text-center">
                   <p className="text-white font-medium">{item.category}</p>
-                  {item.note && (
-                    <p className="text-gray-400 text-sm mt-1">{item.note}</p>
-                  )}
+                  {item.note && <p className="text-gray-400 text-sm mt-1">{item.note}</p>}
                 </div>
                 <div className="text-center">
                   <span className="text-gray-300 text-lg line-through">{item.standardPrice}</span>
@@ -92,30 +80,26 @@ export const PricingSection = () => {
             ))}
           </div>
         </div>
-        
+
         {/* Pricing Note */}
-        <div className="text-center mb-8">
-          <p className="text-gray-400 text-sm italic">
-            Note: All prices are negotiable based on final scope and volume.
-          </p>
-        </div>
-        
+        <p className="text-center text-gray-400 text-sm italic mb-8">
+          Note: All prices are negotiable based on final scope and volume.
+        </p>
+
         {/* Benefits */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {benefits.map((benefit, index) => (
-            <div 
-              key={index}
-              className="bg-gray-900/50 backdrop-blur-sm border border-green-400/30 rounded-2xl p-6 text-center hover:border-green-400/60 transition-all duration-300"
-            >            <div className="flex items-center justify-center mb-4">
-              <CheckCircle className="w-8 h-8 text-green-400 mr-2" />
-              <Gift className="w-8 h-8 golden-text" />
-            </div>
+            <div key={index} className="bg-gray-900/50 backdrop-blur-sm border border-green-400/30 rounded-2xl p-6 text-center hover:border-green-400/60 transition-all duration-300">
+              <div className="flex items-center justify-center mb-4">
+                <CheckCircle className="w-8 h-8 text-green-400 mr-2" />
+                <Gift className="w-8 h-8 golden-text" />
+              </div>
               <p className="text-white font-semibold text-lg">{benefit}</p>
             </div>
           ))}
         </div>
-        
-        {/* Special Offer Highlight */}
+
+        {/* Video Offer Highlight */}
         <div className="golden-gradient/20 border-2 golden-border rounded-2xl p-8 text-center">
           <Star className="w-12 h-12 golden-text mx-auto mb-4" />
           <h3 className="text-2xl font-bold text-white mb-4">Limited Time Partnership Offer</h3>
@@ -125,11 +109,13 @@ export const PricingSection = () => {
           <div className="flex justify-center">
             <div className="relative w-full max-w-sm rounded-2xl overflow-hidden shadow-2xl">
               <video
-                className="w-full h-auto object-cover"
-                autoPlay={true}
+                className="w-full h-auto object-cover rounded-xl"
+                autoPlay
                 loop
                 muted
                 playsInline
+                preload="auto"
+                poster="/preview-image.jpg"
               >
                 <source src="/final animation.mp4" type="video/mp4" />
                 Your browser does not support the video tag.
@@ -138,7 +124,7 @@ export const PricingSection = () => {
           </div>
         </div>
 
-        {/* Partnership Benefits Section */}
+        {/* Perks Section */}
         <div className="mt-16 bg-gradient-to-r from-green-900/20 to-emerald-900/20 border border-green-400/30 rounded-2xl p-8">
           <div className="text-center mb-8">
             <h3 className="text-3xl font-bold golden-gradient-text mb-4">
@@ -150,66 +136,53 @@ export const PricingSection = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-8">
+            {/* Social Media Boost */}
             <div className="bg-gray-900/50 rounded-xl p-6 border border-green-400/20">
               <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-green-400/20 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">🎬</span>
-                </div>
+                <div className="w-12 h-12 bg-green-400/20 rounded-lg flex items-center justify-center text-2xl">🎬</div>
                 <div>
-                  <h4 className="text-xl font-semibold text-green-400 mb-3">
-                    FREE Social Media Boost
-                  </h4>
-                  <ul className="text-gray-300 space-y-2">
-                    <li>• 2 professional reels featuring your dishes</li>
-                    <li>• Influencer collaboration for maximum reach</li>
-                    <li>• Your social media accounts tagged for exposure</li>
-                    <li>• Professional content creation for brand building</li>
+                  <h4 className="text-xl font-semibold text-green-400 mb-3">FREE Social Media Boost</h4>
+                  <ul className="text-gray-300 space-y-2 list-disc list-inside">
+                    <li>2 professional reels featuring your dishes</li>
+                    <li>Influencer collaboration for maximum reach</li>
+                    <li>Your social media accounts tagged for exposure</li>
+                    <li>Professional content creation for brand building</li>
                   </ul>
-                  <div className="mt-4 text-sm text-green-400 font-medium">
-                    Value: ₹15,000 | FREE for first month
-                  </div>
+                  <p className="mt-4 text-sm text-green-400 font-medium">Value: ₹15,000 | FREE for first month</p>
                 </div>
               </div>
             </div>
 
+            {/* Landing Page */}
             <div className="bg-gray-900/50 rounded-xl p-6 border border-green-400/20">
               <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-green-400/20 rounded-lg flex items-center justify-center">
-                  <span className="text-2xl">🌐</span>
-                </div>
+                <div className="w-12 h-12 bg-green-400/20 rounded-lg flex items-center justify-center text-2xl">🌐</div>
                 <div>
-                  <h4 className="text-xl font-semibold text-green-400 mb-3">
-                    FREE Fully Customizable Landing Page
-                  </h4>
-                  <ul className="text-gray-300 space-y-2">
-                    <li>• Your logo, colors, imagery and brand experience</li>
-                    <li>• Google Maps with navigation, live hours, ratings & reviews</li>
-                    
-                    <li>• One-click “View in 3D” access from anywhere</li>
-                    <li>• Perfect for Instagram bio links</li>
+                  <h4 className="text-xl font-semibold text-green-400 mb-3">FREE Fully Customizable Landing Page</h4>
+                  <ul className="text-gray-300 space-y-2 list-disc list-inside">
+                    <li>Your logo, colors, imagery and brand experience</li>
+                    <li>Google Maps with navigation, live hours, ratings & reviews</li>
+                    <li>One-click “View in 3D” access from anywhere</li>
+                    <li>Perfect for Instagram bio links</li>
                   </ul>
-                  <div className="mt-4 text-sm text-green-400 font-medium">
-                    Value: ₹8,000 | FREE FOREVER
-                  </div>
+                  <p className="mt-4 text-sm text-green-400 font-medium">Value: ₹8,000 | FREE FOREVER</p>
                 </div>
               </div>
             </div>
           </div>
 
+          {/* Summary Highlight */}
           <div className="mt-8 text-center">
-  <div className="flex flex-col items-center space-y-2 bg-green-400/10 border border-green-400/30 rounded-full px-6 py-3">
-    <div className="flex items-center space-x-2">
-      <span className="text-green-400 font-semibold">
-        Social Media Boost: ₹15,000 FREE (1st month) + Landing Page: ₹8,000 FREE (Forever)
-      </span>
-      <span className="text-2xl">🎉</span>
-    </div>
-    <div>
-      <span className="text-green-400 font-semibold">
-        💰 Total Value: ₹23,000 — Yours FREE
-      </span>
-    </div>
-              
+            <div className="flex flex-col items-center space-y-2 bg-green-400/10 border border-green-400/30 rounded-full px-6 py-3">
+              <div className="flex items-center space-x-2">
+                <span className="text-green-400 font-semibold">
+                  Social Media Boost: ₹15,000 FREE (1st month) + Landing Page: ₹8,000 FREE (Forever)
+                </span>
+                <span className="text-2xl">🎉</span>
+              </div>
+              <span className="text-green-400 font-semibold">
+                💰 Total Value: ₹23,000 — Yours FREE
+              </span>
             </div>
             <p className="text-gray-400 text-sm mt-2">
               *Social media services available as paid services after the first month
