@@ -8,26 +8,31 @@ import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
 import About from "./pages/About";
+import { useRestaurant } from "./hooks/useRestaurant";
 
 const queryClient = new QueryClient();
+const App = () => {
+  const restaurant = useRestaurant();
+  console.log(restaurant);
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-          <Route path="/terms-of-use" element={<TermsOfUse />} />
-          <Route path="/about" element={<About />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <Routes>
+            <Route path="/:id" element={<Index />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-use" element={<TermsOfUse />} />
+            <Route path="/about" element={<About />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 export default App;
