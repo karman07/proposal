@@ -1,1 +1,1 @@
-export const BASE_URL = 'http://93.127.194.249:5000/'
+export const BASE_URL = 'https://dine3d.com/api'
